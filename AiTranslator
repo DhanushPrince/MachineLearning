@@ -1,0 +1,20 @@
+import warnings
+from transformers import pipeline
+
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=UserWarning)
+
+def translate_text(text, source_lang="en", target_lang="fr"):
+    """Translates text using Hugging Face's translation model."""
+    model_name = f"Helsinki-NLP/opus-mt-{source_lang}-{target_lang}"
+    translator = pipeline("translation", model=model_name)
+    result = translator(text)
+    return result[0]['translation_text']
+
+def model(text):
+  translated_text = translate_text(text, source_lang="en", target_lang="fr")
+  print("Translated:", translated_text)
+
+# Example Usage
+text = input("Enter the text:")
+model(text)
